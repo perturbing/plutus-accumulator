@@ -1,0 +1,37 @@
+cabal-version: 3.0
+name:          plutus-accumulator
+version:       1.0.0.0
+license:       Apache-2.0
+author:        Thomas Vellekoop
+maintainer:    thomas.vellekoop@iohk.io
+synopsis:
+  "A MVP implementation of an accumulator in plutus over the BLS12-381 pairing "
+
+build-type:    Simple
+
+library
+  exposed-modules:
+    Offchain
+    Plutus.Crypto.Accumulator
+    Plutus.Crypto.BlsUtils
+
+  hs-source-dirs:   src
+  default-language: Haskell2010
+  build-depends:
+    , base >=4.2 && <5
+    , plutus-core ^>=1.27
+    , plutus-tx ^>=1.27
+
+-- test-suite run-vector-test
+--   type:             exitcode-stdio-1.0
+--   hs-source-dirs:   test
+--   default-language: Haskell2010
+--   main-is:          Main.hs
+--   other-modules:    Types
+--   build-depends:
+--     , aeson
+--     , base
+--     , bytestring
+--     , plutus-core ^>=1.27
+--     , plutus-plonk
+--     , plutus-tx ^>=1.27
