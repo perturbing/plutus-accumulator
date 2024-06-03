@@ -50,7 +50,7 @@ runCheckMembership h = do
     let g1 = P.bls12_381_G1_uncompress P.bls12_381_G1_compressed_generator
         g2 = P.bls12_381_G2_uncompress P.bls12_381_G2_compressed_generator
         tau = mkScalar 5
-        k = 400
+        k = 1024
         -- power of tau
         crsG1 = map (\x -> P.bls12_381_G1_scalarMul (unScalar (P.scale x tau)) g1) [0 .. k]
         crsG2 = map (\x -> P.bls12_381_G2_scalarMul (unScalar (P.scale x tau)) g2) [0 .. k]
@@ -61,5 +61,5 @@ runCheckMembership h = do
 
     hPrintf h "n membership proofs aggregated verification\n\n"
     printHeader h
-    mapM_ (\x -> printCostsCheckMembership h x crsG1 crsG2 accBs setBs) [0, 5 .. 45]
+    mapM_ (\x -> printCostsCheckMembership h x crsG1 crsG2 accBs setBs) ([1, 2, 3, 4] <> [5, 10 .. 45])
     hPrintf h "\n\n"
