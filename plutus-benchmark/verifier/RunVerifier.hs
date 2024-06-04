@@ -7,8 +7,8 @@ module RunVerifier (
 ) where
 
 import Offchain (extendedEuclideanPoly, quotRemScalarPoly)
-import Plutus.Crypto.Accumulator (checkMembership, checkNonMembership, getG1Commitment, getG2Commitment)
-import Plutus.Crypto.BlsUtils (Scalar (..), getFinalPoly, mkScalar)
+import Plutus.Crypto.Accumulator (checkMembership, checkNonMembership)
+import Plutus.Crypto.BlsUtils (Scalar (..), getFinalPoly, getG1Commitment, getG2Commitment, mkScalar)
 
 import Scripts (checkMembershipScript, checkNonMembershipScript, listOfSizedByteStrings)
 
