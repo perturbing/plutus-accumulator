@@ -1,0 +1,14 @@
+name = "aiken/aiken-bilinear-accumulator"
+version = "0.0.0"
+license = "Apache-2.0"
+description = "Aiken contracts for project 'aiken/aiken-bilinear-accumulator'"
+
+[repository]
+user = "aiken"
+project = "aiken-bilinear-accumulator"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "1.9.0"
+source = "github"
