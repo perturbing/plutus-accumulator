@@ -33,6 +33,16 @@ listOfSizedByteStrings n l =
             (R.singleton $ Haskell.fromIntegral n)
             (G.bytes (R.singleton $ Haskell.fromIntegral l))
 
+-- Note in any BLS12-381 usage onchain, all points are compressed in plutus data.
+-- This means that for each an uncompressed function call is needed.
+-- In light of this, the checkMembership and checkNonMembership benchmarks
+-- will use compressed points as input and the script will uncompress them.
+--
+-- As it is common for a vector commitment scheme to use byte strings as input,
+-- the subset and disjoint set will be represented as a list of byte strings as well.
+-- So, the script will use the byteStringToInteger function to convert them to scalars.
+-- Note that this fails if the byte string is not a valid scalar (see blsUtils.hs).
+
 {-# INLINEABLE checkMembershipWithBytes #-}
 checkMembershipWithBytes ::
     [BuiltinByteString] ->

@@ -60,7 +60,11 @@ import Data.Bits (setBit, testBit)
 import GHC.ByteOrder (ByteOrder (..))
 import Plutus.Crypto.BlsUtils (Fp (..), Fp2 (..), MultiplicativeGroup (..), Scalar (..), ScalarPoly (..), negateScalar)
 
--- Helper functions (this is some legacy code that we need to refactor)
+-- Helper functions (this is some legacy code that we need to refactor).
+-- These functions are there to help with the offchain, but note that
+-- they are inefficient and definitly are not intended to be used onchain.
+
+-- Convert a G1 point from affine coordinates to compressed form.
 {-# NOINLINE compressG1Point #-}
 compressG1Point :: (Fp, Fp) -> BuiltinBLS12_381_G1_Element
 compressG1Point (x, y)
@@ -81,6 +85,7 @@ pow b e
     | even e = pow (b * b) (e `divide` 2)
     | otherwise = b * pow (b * b) ((e - 1) `divide` 2)
 
+-- Convert a G2 point from affine coordinates to compressed form.
 {-# NOINLINE compressG2Point #-}
 compressG2Point :: (Fp2, Fp2) -> BuiltinBLS12_381_G2_Element
 compressG2Point (x, y)

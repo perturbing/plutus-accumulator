@@ -47,6 +47,9 @@ module Plutus.Crypto.BlsUtils (
     mkScalarPoly,
     polyMulBinom,
     getFinalPoly,
+    -- Commitment functions
+    getG1Commitment,
+    getG2Commitment,
 ) where
 
 import PlutusTx (makeIsDataIndexed, makeLift, unstableMakeIsData)
@@ -500,3 +503,17 @@ polyMulBinom (ScalarPoly f) a = ScalarPoly $ zipWith (+) (zero : f) (map (* a) f
 {-# INLINEABLE getFinalPoly #-}
 getFinalPoly :: [Scalar] -> ScalarPoly
 getFinalPoly = foldl polyMulBinom (ScalarPoly [one])
+
+-- Given a list of G1 elements, we can create a commitment to a polynomial over G1.
+{-# INLINEABLE getG1Commitment #-}
+getG1Commitment :: [BuiltinBLS12_381_G1_Element] -> ScalarPoly -> BuiltinBLS12_381_G1_Element
+getG1Commitment crsG1 (ScalarPoly poly) =
+    foldl bls12_381_G1_add zero
+        $ zipWith (bls12_381_G1_scalarMul . unScalar) poly crsG1
+
+-- Given a list of G2 elements, we can create a commitment to a polynomial over G2.
+{-# INLINEABLE getG2Commitment #-}
+getG2Commitment :: [BuiltinBLS12_381_G2_Element] -> ScalarPoly -> BuiltinBLS12_381_G2_Element
+getG2Commitment crsG2 (ScalarPoly poly) =
+    foldl bls12_381_G2_add zero
+        $ zipWith (bls12_381_G2_scalarMul . unScalar) poly crsG2
