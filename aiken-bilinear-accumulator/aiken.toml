@@ -1,11 +1,11 @@
-name = "aiken/aiken-bilinear-accumulator"
+name = "aiken/aiken_bilinear_accumulator"
 version = "0.0.0"
 license = "Apache-2.0"
-description = "Aiken contracts for project 'aiken/aiken-bilinear-accumulator'"
+description = "Aiken contracts for project 'aiken/aiken_bilinear_accumulator'"
 
 [repository]
 user = "aiken"
-project = "aiken-bilinear-accumulator"
+project = "aiken_bilinear_accumulator"
 platform = "github"
 
 [[dependencies]]

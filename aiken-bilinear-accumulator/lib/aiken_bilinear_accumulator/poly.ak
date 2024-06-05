@@ -2,7 +2,7 @@ use aiken/list.{concat, foldl, map, map2}
 
 // Multiply a list of n coefficients that belong to a binomial each to get a final polynomial of degree n+1
 //Example: for (x+2)(x+3)(x+5)(x+7)(x+11)=x^5 + 28 x^4 + 288 x^3 + 1358 x^2 + 2927 x + 2310
-fn get_final_poly(binomial_poly: List<Int>) {
+pub fn get_final_poly(binomial_poly: List<Int>) {
   let go =
     fn(term: Int, acc: List<Int>) {
       let shifted_poly =
