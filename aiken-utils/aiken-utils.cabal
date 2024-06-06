@@ -42,7 +42,7 @@ common lang
 library
   import:          lang
   hs-source-dirs:  src
-  exposed-modules: MyLib
+  exposed-modules: Testing
   build-depends:
     , base >=4.9 && <5
     , bytestring
@@ -51,6 +51,9 @@ library
     , directory
     , filepath
     , flat ^>=0.6
+    , hedgehog
+    , hex-text
+    , plutus-accumulator
     , plutus-core ^>=1.27
     , plutus-ledger-api ^>=1.27
     , plutus-tx ^>=1.27
@@ -69,10 +72,7 @@ executable aiken-utils-exe
     , aiken-utils
     , base >=4.9 && <5
     , bytestring
-    , hedgehog
-    , hex-text
     , plutus-accumulator
     , plutus-core ^>=1.27
     , plutus-tx ^>=1.27
     , plutus-tx-plugin ^>=1.27
-    , text
