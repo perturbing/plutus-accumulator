@@ -53,6 +53,7 @@ library
     , flat ^>=0.6
     , hedgehog
     , hex-text
+    , ordinal
     , plutus-accumulator
     , plutus-core ^>=1.27
     , plutus-ledger-api ^>=1.27
