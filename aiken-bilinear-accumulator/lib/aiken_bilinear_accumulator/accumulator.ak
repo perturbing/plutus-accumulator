@@ -1,6 +1,7 @@
 use aiken/builtin.{
   bls12_381_final_verify, bls12_381_g1_add, bls12_381_g1_scalar_mul,
   bls12_381_g1_uncompress, bls12_381_g2_uncompress, bls12_381_miller_loop,
+  bls12_381_mul_miller_loop_result,
 }
 use aiken/list.{foldl, head, map, map2}
 use aiken_bilinear_accumulator/poly.{get_final_poly}
@@ -29,9 +30,27 @@ pub fn check_membership(
 ) -> Bool {
   expect Some(g1) = head(setup)
 
-  let rhs = bls12_381_miller_loop(g1, acc)
-  let lhs = bls12_381_miller_loop(get_g1_commitment(setup, subset), proof)
-  bls12_381_final_verify(rhs, lhs)
+  let lhs = bls12_381_miller_loop(g1, acc)
+  let rhs = bls12_381_miller_loop(get_g1_commitment(setup, subset), proof)
+  bls12_381_final_verify(lhs, rhs)
+}
+
+pub fn check_nonmembership(
+  setup: List<G1Element>,
+  g2: G2Element,
+  acc: G2Element,
+  disjoint: List<Int>,
+  proof: (G1Element, G2Element),
+) -> Bool {
+  expect Some(g1) = head(setup)
+
+  let lhs1 = bls12_381_miller_loop(proof.1st, acc)
+  let lhs2 =
+    bls12_381_miller_loop(get_g1_commitment(setup, disjoint), proof.2nd)
+  let lhs = bls12_381_mul_miller_loop_result(lhs1, lhs2)
+  let rhs = bls12_381_miller_loop(g1, g2)
+
+  bls12_381_final_verify(lhs, rhs)
 }
 
 test check_membership_one_element() {
