@@ -22,3 +22,8 @@ cabal.project.local~
 .HTF/
 .pre-commit-config.yaml
 .ghc.environment.*
+debug/
+target/
+**/*.rs.bk
+*.pdb
+/target

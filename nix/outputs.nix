@@ -1,8 +1,12 @@
 { repoRoot, inputs, pkgs, system, lib }:
 let
-  project = repoRoot.nix.project;
+  haskell-project = repoRoot.nix.haskell-project;
+  rust-project = {
+    packages = repoRoot.nix.rust-project;
+  };
+
 in
 [
-  (project.flake)
-  { }
+  (haskell-project.flake)
+  (rust-project)
 ]

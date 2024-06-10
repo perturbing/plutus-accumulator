@@ -16,6 +16,8 @@
 
     # cardano-node.url = "github:input-output-hk/cardano-node/8.11.0-pre";
 
+    naersk.url = "github:nix-community/naersk";
+
     hackage = {
       url = "github:input-output-hk/hackage.nix";
       flake = false;

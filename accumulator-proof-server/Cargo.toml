@@ -1,0 +1,15 @@
+[package]
+name = "accumulator-proof-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+flint-sys = "0.7.3"
+libc = "0.2.154"
+rand = "0.8"
+ff = "0.13"
+group = "0.13"
+rayon = "1.10.0"
+blstrs = "0.7.1" 
+hex = "0.4"
+num-bigint = "0.4.5"

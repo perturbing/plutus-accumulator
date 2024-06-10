@@ -6,9 +6,11 @@ cabalProject:
   name = "plutus-accumulator";
 
   packages = lib.traceSeq inputs.CHaP [
-    # inputs.cardano-node.packages.cardano-node
-    # inputs.cardano-node.packages.cardano-cli
+    pkgs.cargo
+    pkgs.rustc
+    pkgs.rustfmt
     pkgs.jq
+    pkgs.m4
   ];
 
   preCommit = {
@@ -36,35 +38,21 @@ cabalProject:
   };
 
   scripts = {
-    deploy-local-testnet = {
-      description = "Start and run an ephemeral local testnet";
+    rustfmt-repo = {
+      description = "rustfmt the repo";
       group = "general";
       exec = ''
         set -e
         set -u
         set -o pipefail
 
-        cd $(git rev-parse --show-toplevel)/local-testnet
-        [ -d example ] || scripts/babbage/mkfiles.sh
-        example/run/all.sh
+        cd $(git rev-parse --show-toplevel)
+        find . -name "*.rs" | xargs rustfmt
       '';
     };
 
-    purge-local-testnet = {
-      description = "Cleanup the local testnet directory";
-      group = "general";
-      exec = ''
-        set -e
-        set -u
-        set -o pipefail
-
-        cd $(git rev-parse --show-toplevel)/local-testnet
-        rm -rf example logs
-      '';
-    };
   };
 
   shellHook = ''
-    export CARDANO_NODE_SOCKET_PATH="$(git rev-parse --show-toplevel)/local-testnet/example/node-spo1/node.sock"
   '';
 }
