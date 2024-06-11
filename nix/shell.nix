@@ -21,6 +21,7 @@ cabalProject:
     fourmolu.enable = true;
     fourmolu.extraOptions = "-o -XCPP";
     hlint.enable = true;
+    rustfmt.enable = true;
   };
 
   tools = {
@@ -37,21 +38,7 @@ cabalProject:
       hlsProject.hsPkgs.haskell-language-server.components.exes.haskell-language-server;
   };
 
-  scripts = {
-    rustfmt-repo = {
-      description = "rustfmt the repo";
-      group = "general";
-      exec = ''
-        set -e
-        set -u
-        set -o pipefail
-
-        cd $(git rev-parse --show-toplevel)
-        find . -name "*.rs" | xargs rustfmt
-      '';
-    };
-
-  };
+  scripts = { };
 
   shellHook = ''
   '';
