@@ -1,12 +1,24 @@
+mod poly;
+
 use std::time::Instant;
 
 use ff::Field;
-use group::Group;
 
-use blstrs::{G2Projective, Scalar};
-use rand::rngs::StdRng;
-use rand::{thread_rng, SeedableRng};
-use rayon::prelude::*;
+use blstrs::Scalar;
+use rand::thread_rng;
+
+use crate::poly::{get_final_poly, Fmpz};
+
+// fn scalar_from_hex(hex: &str) -> Scalar {
+//     let scalar = Scalar::from_bytes_be(&{
+//         let mut array = [0u8; 32];
+//         let bytes = hex::decode(hex).expect("Decoding failed");
+//         array[32 - bytes.len()..].copy_from_slice(&bytes);
+//         array
+//     })
+//     .expect("Conversion failed");
+//     scalar
+// }
 
 fn main() {
     const N: usize = 100_000;
@@ -16,24 +28,27 @@ fn main() {
     // generate vector of random scalars
     let stopwatch = Instant::now();
     let scalars: Vec<Scalar> = (0..N).map(|_| Scalar::random(&mut rng)).collect();
+    let fmpz_scalars: Vec<Fmpz> = scalars.iter().map(|s| Fmpz::from_scalar(*s)).collect();
+    // println!(
+    //     "fmpz: {:?}",
+    //     fmpz_scalars
+    //         .iter()
+    //         .map(|f| f.to_string(10))
+    //         .collect::<Vec<String>>()
+    // );
     let time = stopwatch.elapsed();
     println!("Time to generate scalars: {:?}", time);
 
     let stopwatch = Instant::now();
-    // concurrently generate vector of random G2 points
-    let g2_points: Vec<G2Projective> = (0..N)
-        .into_par_iter()
-        .map(|i| {
-            let mut thread_rng = StdRng::seed_from_u64(i as u64);
-            G2Projective::random(&mut thread_rng)
-        })
-        .collect();
+    let coeff: Vec<Scalar> = get_final_poly(&scalars);
+    let fmpz_coeff: Vec<Fmpz> = coeff.iter().map(|s| Fmpz::from_scalar(*s)).collect();
+    // println!(
+    //     "fmpz: {:?}",
+    //     fmpz_coeff
+    //         .iter()
+    //         .map(|f| f.to_string(10))
+    //         .collect::<Vec<String>>()
+    // );
     let time = stopwatch.elapsed();
-    println!("Time to generate G2 points: {:?}", time);
-
-    let stopwatch = Instant::now();
-    let result: G2Projective = G2Projective::multi_exp(&g2_points, &scalars);
-    println!("Result: {:?}", result);
-    let time = stopwatch.elapsed();
-    println!("Time to compute multiexp: {:?}", time);
+    println!("Time to generate coeff: {:?}", time);
 }
