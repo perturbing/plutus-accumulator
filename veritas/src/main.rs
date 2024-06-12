@@ -7,7 +7,7 @@ use ff::Field;
 use blstrs::Scalar;
 use rand::thread_rng;
 
-use crate::poly::{get_final_poly, Fmpz};
+use crate::poly::get_final_poly;
 
 // fn scalar_from_hex(hex: &str) -> Scalar {
 //     let scalar = Scalar::from_bytes_be(&{
@@ -26,6 +26,13 @@ fn main() {
     let mut rng = thread_rng();
 
     // generate vector of random scalars
+    let stopwatch = Instant::now();
     let scalars: Vec<Scalar> = (0..N).map(|_| Scalar::random(&mut rng)).collect();
+    let time = stopwatch.elapsed();
+    println!("Time to generate scalars: {:?}", time);
+
+    let stopwatch = Instant::now();
     let _coeff: Vec<Scalar> = get_final_poly(&scalars);
+    let time = stopwatch.elapsed();
+    println!("Time to generate coeff: {:?}", time);
 }
