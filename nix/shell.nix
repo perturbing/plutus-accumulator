@@ -8,7 +8,7 @@ cabalProject:
   packages = lib.traceSeq inputs.CHaP [
     pkgs.cargo
     pkgs.rustc
-    pkgs.rustfmt
+    pkgs.rustup
     pkgs.jq
     pkgs.m4
   ];

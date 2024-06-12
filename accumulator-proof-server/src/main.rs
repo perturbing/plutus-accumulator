@@ -21,14 +21,14 @@ use crate::poly::{get_final_poly, Fmpz};
 // }
 
 fn main() {
-    const N: usize = 100_000;
+    const N: usize = 10;
 
     let mut rng = thread_rng();
 
     // generate vector of random scalars
     let stopwatch = Instant::now();
     let scalars: Vec<Scalar> = (0..N).map(|_| Scalar::random(&mut rng)).collect();
-    let fmpz_scalars: Vec<Fmpz> = scalars.iter().map(|s| Fmpz::from_scalar(*s)).collect();
+    let _fmpz_scalars: Vec<Fmpz> = scalars.iter().map(|s| Fmpz::from_scalar(*s)).collect();
     // println!(
     //     "fmpz: {:?}",
     //     fmpz_scalars
@@ -41,7 +41,7 @@ fn main() {
 
     let stopwatch = Instant::now();
     let coeff: Vec<Scalar> = get_final_poly(&scalars);
-    let fmpz_coeff: Vec<Fmpz> = coeff.iter().map(|s| Fmpz::from_scalar(*s)).collect();
+    let _fmpz_coeff: Vec<Fmpz> = coeff.iter().map(|s| Fmpz::from_scalar(*s)).collect();
     // println!(
     //     "fmpz: {:?}",
     //     fmpz_coeff

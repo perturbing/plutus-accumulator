@@ -17,6 +17,8 @@ pub struct Fmpz {
 }
 
 impl Fmpz {
+    // TODO: optimize this by not going through a string
+    // the fmpz c implementation exposed a unsigned int function
     pub fn to_string(&self, base: i32) -> String {
         unsafe {
             let cstr_ptr = fmpz_get_str(ptr::null_mut(), base, &self.value);
@@ -65,33 +67,29 @@ impl Fmpz {
 
 // find the polynomial (x + s_1)(x + s_2)...(x + s_n) for s_n in scalars
 pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
-    // Convert Scalars to Fmpz and negate them
-    let fmpz_scalars: Vec<Fmpz> = scalars.iter().map(|s| Fmpz::from_scalar(s.neg())).collect();
+    // Convert Scalars to Fmpz and negate them as the FLINT function expects the roots to be negated
+    let xs: Vec<fmpz> = scalars
+        .iter()
+        .map(|s| Fmpz::from_scalar(s.neg()).value)
+        .collect();
+    let fmpz_prime: fmpz =
+        Fmpz::from_string(Scalar::MODULUS.to_string().chars().skip(2).collect()).value;
+    let mut coeffs: Vec<Scalar> = Vec::new();
 
-    let fmpz_prime: Fmpz = Fmpz::from_string(Scalar::MODULUS.to_string().chars().skip(2).collect());
-
-    // Initialize the polynomial
-    let mut poly: fmpz_poly_t = unsafe { std::mem::zeroed() };
     unsafe {
+        // Initialize the polynomial
+        let mut poly: fmpz_poly_t = std::mem::zeroed();
         fmpz_poly_init(&mut poly as *mut _);
-    }
 
-    // Convert fmpz_scalars to an array of raw pointers
-    let xs: Vec<fmpz> = fmpz_scalars.iter().map(|f| f.value).collect();
-
-    // Call the FLINT function
-    unsafe {
+        // Call the FLINT function
         fmpz_mod_poly_product_roots_fmpz_vec(
             &mut poly as *mut _,
             xs.as_ptr(),
             xs.len() as i64,
-            &fmpz_prime.value as *const _,
+            &fmpz_prime as *const _,
         );
-    }
 
-    // Extract the coefficients
-    let mut coeffs: Vec<Scalar> = Vec::new();
-    unsafe {
+        // Extract the coefficients
         let length_poly = fmpz_poly_length(&poly as *const _);
         for i in 0..length_poly {
             let mut coeff = fmpz::default();
@@ -100,10 +98,8 @@ pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
             coeffs.push(coeff_fmpz.to_scalar());
             fmpz_clear(&mut coeff as *mut _);
         }
-    }
 
-    // Clear the polynomial and context
-    unsafe {
+        // Clear the polynomial and context
         fmpz_poly_clear(&mut poly as *mut _);
     }
     coeffs
