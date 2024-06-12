@@ -3,13 +3,13 @@
 let
   naersk' = pkgs.callPackage inputs.naersk { };
   cargoProject = naersk'.buildPackage {
-    src = ../accumulator-proof-server;
+    src = ../veritas;
     nativeBuildInputs = [ pkgs.m4 pkgs.pkg-config ];
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 
   outputs = {
-    accumulator-proof-server = cargoProject // {
+    veritas = cargoProject // {
       meta = {
         type = "app";
       };

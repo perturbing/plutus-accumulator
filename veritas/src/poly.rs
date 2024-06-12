@@ -11,6 +11,8 @@ use std::ffi::{CStr, CString};
 use std::ops::Neg;
 use std::ptr;
 
+use std::time::Instant;
+
 #[derive(Clone, Debug)]
 pub struct Fmpz {
     pub value: fmpz,
@@ -67,6 +69,7 @@ impl Fmpz {
 
 // find the polynomial (x + s_1)(x + s_2)...(x + s_n) for s_n in scalars
 pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
+    let stopwatch = Instant::now();
     // Convert Scalars to Fmpz and negate them as the FLINT function expects the roots to be negated
     let xs: Vec<fmpz> = scalars
         .iter()
@@ -75,8 +78,11 @@ pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
     let fmpz_prime: fmpz =
         Fmpz::from_string(Scalar::MODULUS.to_string().chars().skip(2).collect()).value;
     let mut coeffs: Vec<Scalar> = Vec::new();
+    let time = stopwatch.elapsed();
+    println!("Time to convert scalars: {:?}", time);
 
     unsafe {
+        let stopwatch = Instant::now();
         // Initialize the polynomial
         let mut poly: fmpz_poly_t = std::mem::zeroed();
         fmpz_poly_init(&mut poly as *mut _);
@@ -88,7 +94,10 @@ pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
             xs.len() as i64,
             &fmpz_prime as *const _,
         );
+        let time = stopwatch.elapsed();
+        println!("Time to call FLINT: {:?}", time);
 
+        let stopwatch = Instant::now();
         // Extract the coefficients
         let length_poly = fmpz_poly_length(&poly as *const _);
         for i in 0..length_poly {
@@ -101,6 +110,8 @@ pub fn get_final_poly(scalars: &Vec<Scalar>) -> Vec<Scalar> {
 
         // Clear the polynomial and context
         fmpz_poly_clear(&mut poly as *mut _);
+        let time = stopwatch.elapsed();
+        println!("Time to extract coeffs: {:?}", time);
     }
     coeffs
 }
