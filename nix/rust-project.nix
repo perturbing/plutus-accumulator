@@ -1,10 +1,20 @@
 { repoRoot, inputs, pkgs, lib, system }:
 
 let
-  naersk' = pkgs.callPackage inputs.naersk { };
+  toolchain = with inputs.fenix.packages.${system};
+    combine [
+      latest.rustc
+      latest.cargo
+    ];
+
+  naersk' = pkgs.callPackage inputs.naersk {
+    cargo = toolchain;
+    rustc = toolchain;
+  };
   cargoProject = naersk'.buildPackage {
     src = ../veritas;
-    nativeBuildInputs = [ pkgs.m4 pkgs.pkg-config ];
+    nativeBuildInputs = with pkgs; [ m4 pkg-config ];
+    release = true;
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 

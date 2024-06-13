@@ -27,3 +27,4 @@ target/
 **/*.rs.bk
 *.pdb
 /target
+/result

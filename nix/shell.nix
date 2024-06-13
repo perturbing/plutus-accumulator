@@ -5,13 +5,12 @@ cabalProject:
 {
   name = "plutus-accumulator";
 
-  packages = lib.traceSeq inputs.CHaP [
-    pkgs.cargo
-    pkgs.rustc
-    pkgs.rustup
-    pkgs.jq
-    pkgs.m4
-  ];
+  packages = lib.traceSeq inputs.CHaP (with pkgs; [
+    inputs.fenix.packages.${system}.latest.cargo
+    inputs.fenix.packages.${system}.latest.rustc
+    jq
+    m4
+  ]);
 
   preCommit = {
     cabal-fmt.enable = true;

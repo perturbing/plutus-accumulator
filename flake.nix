@@ -18,6 +18,8 @@
 
     naersk.url = "github:nix-community/naersk";
 
+    fenix.url = "github:nix-community/fenix";
+
     hackage = {
       url = "github:input-output-hk/hackage.nix";
       flake = false;
@@ -34,7 +36,6 @@
     };
 
   };
-
 
   outputs = inputs: inputs.iogx.lib.mkFlake {
     inherit inputs;
