@@ -1,38 +1,46 @@
+#![allow(dead_code)]
+#![allow(unused_imports)]
+#![allow(unused_variables)]
+
 mod poly;
+mod poly_fft;
 
 use std::time::Instant;
 
-use ff::Field;
-
-use blstrs::Scalar;
-use rand::thread_rng;
+use ff::{Field, PrimeField};
 
 use crate::poly::get_final_poly;
-
-// fn scalar_from_hex(hex: &str) -> Scalar {
-//     let scalar = Scalar::from_bytes_be(&{
-//         let mut array = [0u8; 32];
-//         let bytes = hex::decode(hex).expect("Decoding failed");
-//         array[32 - bytes.len()..].copy_from_slice(&bytes);
-//         array
-//     })
-//     .expect("Conversion failed");
-//     scalar
-// }
+use crate::poly_fft::get_final_poly_halo2;
+use blstrs::Scalar;
+use halo2_proofs::arithmetic::best_fft;
+use num_bigint::BigUint;
+use num_traits::ops::bytes;
+use num_traits::Num;
+use rand::thread_rng;
 
 fn main() {
-    const N: usize = 10_000_000;
+    const N: u32 = 10_000;
 
     let mut rng = thread_rng();
 
     // generate vector of random scalars
     let stopwatch = Instant::now();
     let scalars: Vec<Scalar> = (0..N).map(|_| Scalar::random(&mut rng)).collect();
+
     let time = stopwatch.elapsed();
     println!("Time to generate scalars: {:?}", time);
 
     let stopwatch = Instant::now();
-    let _coeff: Vec<Scalar> = get_final_poly(&scalars);
+    // use sqrt of N size for d
+    let d = (N as f64).sqrt() as usize;
+    let coeff1: Vec<Scalar> = get_final_poly_halo2(&scalars, d);
     let time = stopwatch.elapsed();
-    println!("Time to generate coeff: {:?}", time);
+    println!("Time to generate coeff with halo2 fft: {:?}", time);
+
+    let stopwatch = Instant::now();
+    let coeff2: Vec<Scalar> = get_final_poly(&scalars);
+    let time = stopwatch.elapsed();
+    println!("Time to generate coeff with C bindings: {:?}", time);
+
+    assert_eq!(coeff1, coeff2);
 }
