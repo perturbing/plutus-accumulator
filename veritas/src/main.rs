@@ -19,7 +19,7 @@ use num_traits::Num;
 use rand::thread_rng;
 
 fn main() {
-    const N: u32 = 100_000;
+    const N: u32 = 1_000_000;
 
     let mut rng = thread_rng();
 
