@@ -56,9 +56,9 @@ library plutus-benchmark-common
     , directory
     , filepath
     , flat ^>=0.6
-    , plutus-core ^>=1.27
-    , plutus-ledger-api ^>=1.27
-    , plutus-tx ^>=1.27
+    , plutus-core ^>=1.30
+    , plutus-ledger-api ^>=1.30
+    , plutus-tx ^>=1.30
     , tasty
     , tasty-golden
     , temporary
@@ -76,9 +76,9 @@ executable bench-verifier
     , hedgehog
     , plutus-accumulator
     , plutus-benchmark-common
-    , plutus-core ^>=1.27
-    , plutus-tx ^>=1.27
-    , plutus-tx-plugin ^>=1.27
+    , plutus-core ^>=1.30
+    , plutus-tx ^>=1.30
+    , plutus-tx-plugin ^>=1.30
 
   exposed-modules:
     RunVerifier
