@@ -3,7 +3,7 @@ use aiken/builtin.{
   bls12_381_g1_uncompress, bls12_381_miller_loop,
   bls12_381_mul_miller_loop_result,
 }
-use aiken/list.{foldl, head, map2}
+use aiken/collection/list.{foldl, head, map2}
 use aiken_bilinear_accumulator/poly.{get_final_poly}
 
 const g1_zero_bs =
