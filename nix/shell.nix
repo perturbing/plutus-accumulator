@@ -6,8 +6,8 @@ cabalProject:
   name = "plutus-accumulator";
 
   packages = lib.traceSeq inputs.CHaP [
-    inputs.cardano-node.packages.cardano-node
-    inputs.cardano-node.packages.cardano-cli
+    # inputs.cardano-node.packages.cardano-node
+    # inputs.cardano-node.packages.cardano-cli
     pkgs.jq
   ];
 
