@@ -1,0 +1,18 @@
+name = "jmagan/aiken-bilinear-accumulator"
+version = "0.1.0"
+compiler = "v1.1.3"
+plutus = "v3"
+license = "Apache-2.0"
+description = "Aiken contracts for project 'jmagan/aiken-bilinear-accumulator'"
+
+[repository]
+user = "jmagan"
+project = "aiken-bilinear-accumulator"
+platform = "github"
+
+[[dependencies]]
+name = "aiken-lang/stdlib"
+version = "v2"
+source = "github"
+
+[config]
