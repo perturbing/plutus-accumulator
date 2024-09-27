@@ -786,8 +786,7 @@ test check_non_membership_one_elements() {
     #<Bls12_381, G2>"a82b83da0a22649c8228cb7fa581813f6b110ab422e4876d57cb074c952ef95efe5c929a8c6c0a87c33c47d58797f65e06a024473d2271d7205d0b5bd85ce2b6ed152150a1575f5b18d60e3e01762ea1d18374cceac551c622bac144f85f66e4"
 
   // Disjoint set:
-  let disjoint_set =
-    [55]
+  let disjoint_set = [55]
 
   // Proof:
   let proof =
@@ -817,8 +816,7 @@ test check_non_membership_two_elements() {
     #<Bls12_381, G2>"a4f0f0c53862bd3390f2b8f884b254c9f3054a7532008f30de6503be1d1ffb80cd8a84a72117d84d6c228ef57fa822b2103af464d82f78776c5082a4eab445c508109a9e9f42d179a4eb1d63cac1eff08f2572757a29dc6efc2725c43135aa93"
 
   // Disjoint set:
-  let disjoint_set =
-    [55, 55]
+  let disjoint_set = [55, 55]
 
   // Proof:
   let proof =
@@ -849,8 +847,7 @@ test check_non_membership_three_elements() {
     #<Bls12_381, G2>"909b52c4c6c3c7f052524a9f6b5d72d6358159ad6ee7bb4fc083c03305abbc35b89685b14a0c6c531c262ce69b583ca90e0c20e66ae74a079828a446cb9ebc0644901ed5886fdb495628d22a7866bd98061381707f543bdd5b4004d2e977d541"
 
   // Disjoint set:
-  let disjoint_set =
-    [55, 55, 55]
+  let disjoint_set = [55, 55, 55]
 
   // Proof:
   let proof =
@@ -882,8 +879,7 @@ test check_non_membership_four_elements() {
     #<Bls12_381, G2>"99a8eac96b495c6df605765ac8cfd05d44a826b4d9f391cda609b14190b7ba7635e210551e36e2268384666a55d8c22d19d435dd6e391e5bdef4cd859b48305542f0c97a4442b5e40b924df488aad64f353ce362e1f77ab4fa3556e4b8d54118"
 
   // Disjoint set:
-  let disjoint_set =
-    [55, 55, 55, 55]
+  let disjoint_set = [55, 55, 55, 55]
 
   // Proof:
   let proof =
@@ -916,8 +912,7 @@ test check_non_membership_five_elements() {
     #<Bls12_381, G2>"a4e24a3741d3f6d22d62e896d80d5eaaaf6820109c868903377de1a75268c7b3e6d08aa4dab2d3d81ebac22b05f054b00005885c9f4516ca78c33bf158e401d44acc363eba20ab2b6c6c5125e7c50914d1497321f217ef125782ad43c2ef93f0"
 
   // Disjoint set:
-  let disjoint_set =
-    [55, 55, 55, 55, 55]
+  let disjoint_set = [55, 55, 55, 55, 55]
 
   // Proof:
   let proof =
@@ -955,8 +950,7 @@ test check_non_membership_ten_elements() {
     #<Bls12_381, G2>"a9102928dae3c9c46ae1e1237fef4c9d990a92e877ff1df07ea884c0f8469c36a390c3f558efd1f2b44c739a5687a7dd0211eee8fb36fb8d8c18438a6eda670fad62a9875f0c3ea92576a9a217b42538a31ac5be2460d3092d3c3330551277e8"
 
   // Disjoint set:
-  let disjoint_set =
-    [55, 55, 55, 55, 55, 55, 55, 55, 55, 55]
+  let disjoint_set = [55, 55, 55, 55, 55, 55, 55, 55, 55, 55]
 
   // Proof:
   let proof =

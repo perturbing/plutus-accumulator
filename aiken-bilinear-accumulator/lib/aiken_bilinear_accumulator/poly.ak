@@ -5,8 +5,7 @@ use aiken/collection/list.{concat, foldl, map, map2}
 pub fn get_final_poly(binomial_poly: List<Int>) {
   let go =
     fn(term: Int, acc: List<Int>) {
-      let shifted_poly =
-        [0, ..acc]
+      let shifted_poly = [0, ..acc]
       let multiplied_poly = map(concat(acc, [0]), fn(x) { x * term })
       map2(shifted_poly, multiplied_poly, fn(x, y) { x + y })
     }
