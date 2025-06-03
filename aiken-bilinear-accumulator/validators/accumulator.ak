@@ -2,7 +2,7 @@ use aiken/collection/list.{map}
 use aiken/crypto/bls12_381/g1.{decompress as g1_decompress}
 use aiken/crypto/bls12_381/g2.{decompress as g2_decompress}
 use aiken_bilinear_accumulator/accumulator.{
-  check_membership, check_nonmembership,
+  check_membership_int, check_nonmembership_int,
 }
 use cardano/transaction.{OutputReference, Transaction, placeholder}
 
@@ -34,15 +34,15 @@ validator bilinear_accumulator {
     expect Some(datum) = datum
 
     when redeemer.proof is {
-      Membership(proof) ->
-        check_membership(
+      Membership { proof } ->
+        check_membership_int(
           map(redeemer.setup, g1_decompress),
           g2_decompress(datum.accumulator),
           redeemer.subset,
           g2_decompress(proof),
         )
-      NonMembership((proof_1st, proof_2nd)) ->
-        check_nonmembership(
+      NonMembership{proof: (proof_1st, proof_2nd)} ->
+        check_nonmembership_int(
           map(redeemer.setup, g1_decompress),
           g2,
           g2_decompress(datum.accumulator),
