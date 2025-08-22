@@ -1,20 +1,14 @@
 {
-  description = "A MVP implementation of an accumulator in plutus over the BLS12-381 pairing curve ";
+  description = "A MVP implementation of an accumulator in plutus over the BLS12-381 pairing curve";
 
   inputs = {
-    iogx = {
-      url = "github:input-output-hk/iogx";
+
+    haskell-nix = {
+      url = "github:input-output-hk/haskell.nix";
       inputs.hackage.follows = "hackage";
-      inputs.CHaP.follows = "CHaP";
-      inputs.haskell-nix.follows = "haskell-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixpkgs.follows = "haskell-nix/nixpkgs";
-
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # cardano-node.url = "github:input-output-hk/cardano-node/8.11.0-pre";
 
     hackage = {
       url = "github:input-output-hk/hackage.nix";
@@ -22,32 +16,34 @@
     };
 
     CHaP = {
-      url = "github:intersectmbo/cardano-haskell-packages?ref=repo";
+      url = "github:IntersectMBO/cardano-haskell-packages?ref=repo";
       flake = false;
     };
 
-    haskell-nix = {
-      url = "github:input-output-hk/haskell.nix";
-      inputs.hackage.follows = "hackage";
+    iohk-nix = {
+      url = "github:input-output-hk/iohk-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-
-  outputs = inputs: inputs.iogx.lib.mkFlake {
-    inherit inputs;
-    repoRoot = ./.;
-    systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
-    outputs = import ./nix/outputs.nix;
-  };
+  outputs = inputs: inputs.flake-utils.lib.eachDefaultSystem (system: 
+    import ./nix/outputs.nix { inherit inputs system; }
+  );
 
   nixConfig = {
-    extra-substituters = [
-      "https://cache.iog.io"
+    extra-substituters = [ 
+      "https://cache.iog.io" 
+      "https://cache.zw3rk.com" 
     ];
     extra-trusted-public-keys = [
       "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "loony-tools:pr9m4BkM/5/eSTZlkQyRt57Jz7OMBxNSUiMC4FkcNfk="
     ];
     allow-import-from-derivation = true;
+    accept-flake-config = true;
   };
 }
