@@ -31,6 +31,15 @@ pub fn get_final_poly_int_mod(binomial_poly: List<Int>) {
   foldl(binomial_poly, [1], go)
 }
 
+// fn modulo_add(a: Int, b: Int) -> Int {
+//   let ret = a + b
+//   if a < field_prime {
+//     ret
+//   } else {
+//     ret - field_prime
+//   }
+// }
+
 // Like `get_final_poly_int` but uses Scalar
 pub fn get_final_poly_scalar(binomial_poly: List<Scalar>) {
   let go =

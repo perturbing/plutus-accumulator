@@ -2,7 +2,7 @@ use aiken/crypto/bls12_381/scalar
 use aiken/fuzz
 use aiken/primitive/string
 use aiken_bilinear_accumulator/accumulator.{
-  check_membership_using_commitment, get_g1_commitment_int,
+  check_membership_using_commitment, get_g1_commitment, get_g1_commitment_int,
   get_g1_commitment_int_mod, get_g1_commitment_scalar,
 }
 use aiken_bilinear_accumulator/poly.{
@@ -56,16 +56,46 @@ bench final_poly_scalar(scalars: List<Int> via scalars_sampler) {
   get_final_poly_scalar(make_scalars(scalars))
 }
 
-bench g1_commitment_int(scalars: List<Int> via scalars_sampler) {
-  get_g1_commitment_int(setup(), scalars)
+// Commitment benchmarks
+
+// bench g1_commitment_int(scalars: List<Int> via scalars_sampler) {
+//   get_g1_commitment_int(setup(), scalars)
+// }
+
+// bench g1_commitment_int_mod(scalars: List<Int> via scalars_sampler) {
+//   get_g1_commitment_int_mod(setup(), scalars)
+// }
+
+// bench g1_commitment_scalar(scalars: List<Int> via scalars_sampler) {
+//   get_g1_commitment_scalar(setup(), make_scalars(scalars))
+// }
+
+fn unbound_final_coeffs_sampler(size: Int) -> Fuzzer<List<Int>> {
+  fn(s0) {
+    let fuzzer = fuzz.list_between(bls_scalar_fuzzer(), size, size)
+    expect Some((s1, scalars)) = fuzzer(s0)
+    Some((s1, get_final_poly_int(scalars)))
+  }
 }
 
-bench g1_commitment_int_mod(scalars: List<Int> via scalars_sampler) {
-  get_g1_commitment_int_mod(setup(), scalars)
+bench g1_commitment_unbound(
+  final_coeffs: List<Int> via unbound_final_coeffs_sampler,
+) {
+  get_g1_commitment(setup(), final_coeffs)
 }
 
-bench g1_commitment_scalar(scalars: List<Int> via scalars_sampler) {
-  get_g1_commitment_scalar(setup(), make_scalars(scalars))
+fn field_final_coeffs_sampler(size: Int) -> Fuzzer<List<Int>> {
+  fn(s0) {
+    let fuzzer = fuzz.list_between(bls_scalar_fuzzer(), size, size)
+    expect Some((s1, scalars)) = fuzzer(s0)
+    Some((s1, get_final_poly_int_mod(scalars)))
+  }
+}
+
+bench g1_commitment_field(
+  final_coeffs: List<Int> via field_final_coeffs_sampler,
+) {
+  get_g1_commitment(setup(), final_coeffs)
 }
 
 fn setup() -> List<G1Element> {

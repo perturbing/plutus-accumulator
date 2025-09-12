@@ -13,6 +13,19 @@ use aiken_bilinear_accumulator/poly.{
 const g1_zero_bs =
   #"c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
 
+// This takes final coefficients for the benchmarking.
+pub fn get_g1_commitment(
+  setup: List<G1Element>,
+  final_coeffs: List<Int>,
+) -> G1Element {
+  let g1_zero = bls12_381_g1_uncompress(g1_zero_bs)
+
+  let subset_in_g1 =
+    map2(final_coeffs, setup, fn(sb, st) { bls12_381_g1_scalar_mul(sb, st) })
+
+  foldl(subset_in_g1, g1_zero, fn(a, b) { bls12_381_g1_add(a, b) })
+}
+
 pub fn get_g1_commitment_int(
   setup: List<G1Element>,
   subset: List<Int>,
