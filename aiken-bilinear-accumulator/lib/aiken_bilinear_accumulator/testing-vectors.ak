@@ -1,5 +1,5 @@
 use aiken_bilinear_accumulator/accumulator.{
-  check_membership, check_nonmembership,
+  check_membership_int, check_nonmembership_int,
 }
 
 test check_membership_one_elements() {
@@ -22,7 +22,7 @@ test check_membership_one_elements() {
   let proof =
     #<Bls12_381, G2>"809875352e4cd02184ecd07429198ca87364ca0c4bf895482fb8364662bce1945d33c599b47b7d2b34724f45fa17fab8141afa380d192a9134d7f1238e17475af8f6c862c1eecf9666bb5e00b17461ad33112ef2f8dd9580c178b36300cb6dd8"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_two_elements() {
@@ -49,7 +49,7 @@ test check_membership_two_elements() {
   let proof =
     #<Bls12_381, G2>"b76700b0abce4e02d6db4924de6456b75ef1b363eb500edf51cc5fe1d1b5d98f82c64addf79966d0987af855069bafb5019ea2ad533f77ebe01e2e80298284d6996cbdff304f1adac62011273be8863742162b3f73b2100ae4ec35d46941c6e6"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_three_elements() {
@@ -78,7 +78,7 @@ test check_membership_three_elements() {
   let proof =
     #<Bls12_381, G2>"99bdb2c73ea6cd3daf1ec82ec2549fa080effb1d5b747106e349f342ab35b8134f62eab0b72a57075b4b4bfcf8e21df801d3b10210069523bde5a7bc8d6644d78a04d85fdbd2b2b810bf4c40b9b8e10e60f2128fb97b455bebcebead449dc899"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_four_elements() {
@@ -109,7 +109,7 @@ test check_membership_four_elements() {
   let proof =
     #<Bls12_381, G2>"b50d19d0fb967aa4148d49019e6f2fb2ef8180d41c3f8db2be64f694ab05e82ed058e8a0807b1aa9bf88519e78505225009590cb36c2a2723ef4f8f3aa0802b10df2937cbc2390c621a1a59be6e503713f01361322aa314a893b823dd4321076"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_five_elements() {
@@ -142,7 +142,7 @@ test check_membership_five_elements() {
   let proof =
     #<Bls12_381, G2>"b5bd19004a0d0457e002699522f80d753f6bac6dc6bbea3c2cb8d7b514aeb1a5b263ad576fac8dc8c155fab84ca0922116d1084023cc9f42928003ca9ed6784dab341567ac42cfd5f3a8eae7daad58f89541bc60ba7d6f782c646e11cbaad0fd"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_ten_elements() {
@@ -185,7 +185,7 @@ test check_membership_ten_elements() {
   let proof =
     #<Bls12_381, G2>"9540c0e372b7eaf6df0a5d94f6782d411ea4a2f2ec21183a1469032ec4114a32ba80fcc0a0c8476f5f36fd993c55d80610145852ab611c70737fbce7e852cb8cce801f09643a65cc4597ce136cabe69d667747d0076485834af27c289bd4d60a"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_fifteen_elements() {
@@ -238,7 +238,7 @@ test check_membership_fifteen_elements() {
   let proof =
     #<Bls12_381, G2>"965e322e741f75f209c9ffa0a6d136b32da8fa63a558967af14b43301c245659d2853387fe222d0ad28fe84fa570c6370f64c6fc7f1dffea9ccdbb939e633950a0d2d3c830b0b0947b6a8a49eaa3ca4d451186f9be503ce4c0d0b380a19af778"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_twenty_elements() {
@@ -301,7 +301,7 @@ test check_membership_twenty_elements() {
   let proof =
     #<Bls12_381, G2>"a758410847c88f32f8d1856821fb375f71dc9c12fd3f3b497f117f8bdc05c258d220de0d6be9a6943288766ac36e8fee067eb89018aa575cb76b61fa15ee2740e61d7cc42263a94c0102f6129a80e77d3dd9b06403a3f3900236e1e2300132a3"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_twenty_five_elements() {
@@ -374,7 +374,7 @@ test check_membership_twenty_five_elements() {
   let proof =
     #<Bls12_381, G2>"b7416c4686627c2b526f0a3233426009389d78ded49d14032a4c5b0a82e1f2febaf83befc40855789e1e76c454b6b95f0964c0cdfd7e6316f14cd052e6a45bca572ef6e3acfd6bc22c92fda629ccb27335dc33b075a4ba32756dacf5e076ed7e"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_thirty_elements() {
@@ -457,7 +457,7 @@ test check_membership_thirty_elements() {
   let proof =
     #<Bls12_381, G2>"b07da3f414f0d7789b052ef7540ae89f4069b3b6e488b7746af476d2158498ed6ecabf9b393e7e6a71e47265aef9b29f19cd787071cc40ee467433c79b9cac708e3230c9148d2497ad30bf07b7c80d07b68ee8f93f9150eb1bf91c7e5c60dd9c"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_thirty_five_elements() {
@@ -550,7 +550,7 @@ test check_membership_thirty_five_elements() {
   let proof =
     #<Bls12_381, G2>"a345ab94deef37c0f9def82fc90514983d91742d958fa51474574c7d21821d9723f2cc720b4b89d2698327f2e1796ac611b50faed9958c80a9df5b6cb2778a4ae38e4b601f0caeb2910c2681ecad5767c58d761abc6dbfd85e0cf01fa871624f"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_forty_elements() {
@@ -653,7 +653,7 @@ test check_membership_forty_elements() {
   let proof =
     #<Bls12_381, G2>"b317bcc30969c7b11eca341786af3b91e80e40895d74c24f171014dd29a1b8d91208d4344f02c36d27abb14d2a2a40b7029d07900e6e07a7396ea7f29f6ceae04fa3e0cf6688408d31154ae32e66d6ba53b278acf7989122862c2846f4e5f1f5"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_membership_forty_five_elements() {
@@ -766,7 +766,7 @@ test check_membership_forty_five_elements() {
   let proof =
     #<Bls12_381, G2>"b0c2ead18e582d3b4a39e06afaf32615d356215c4d80743920adbaefddf7bef00c3507e78743d43a600c9eac833fdf470c75456a845da33996237866b3e274c70650bcfb85270ca415f64123f6da13eaed668e9b0f51b45617fc5833d0337475"
 
-  check_membership(crs_g1, accumulator, subset, proof)
+  check_membership_int(crs_g1, accumulator, subset, proof)
 }
 
 test check_non_membership_one_elements() {
@@ -795,7 +795,7 @@ test check_non_membership_one_elements() {
       #<Bls12_381, G2>"87fa45b2f91ceb469308014c86941e1ab4112cd3658544b828e89d5254d0e396148543add5966146b8b39dafe321ba0705a311ed9d4209807339759a53aa2a8367820c41ee009a5a94707f7ea30e516aac804fa314d9854af83f1c73f0f64650",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_two_elements() {
@@ -825,7 +825,7 @@ test check_non_membership_two_elements() {
       #<Bls12_381, G2>"acf2c27242993f12c33fff772327a67c96af3828a27f41c3b6fdbabd3388702efc2523b6d9a46042e1127d8a8d2151f90304a0ea5f6a8fd5fad8f10e0a8e9ab56d431ac8344e0156bef41a21a1465e694db521effdce193d40c65aadc2967b62",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_three_elements() {
@@ -856,7 +856,7 @@ test check_non_membership_three_elements() {
       #<Bls12_381, G2>"8f7982b01230da7b7dfe9019b0878068ef6187b7cf4cb44fabf4a658f73ac809adf0a4f0ca2c73a87f498e3122e95c8701b0f43892d5d7b2cd947c1d0c0350126957e358505dbaf268306f2a550483e2ae98a2216c38025cf6d0f1accbb16b46",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_four_elements() {
@@ -888,7 +888,7 @@ test check_non_membership_four_elements() {
       #<Bls12_381, G2>"93916f6abfd7b9ce4874e44907eaed9b93010ab749c777bfb872a42996feae0b932921b6eecf839ac269ca66c4d8431b01cca9ff34dde2b15c71be4b8a09972e88d1b5663577556b2f1737193476568b4ab661daa67ac749bd1f34ee8738f6a9",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_five_elements() {
@@ -921,7 +921,7 @@ test check_non_membership_five_elements() {
       #<Bls12_381, G2>"b421e762c8ea34b4725f78adb88acf34812661291a16b76fb705aa7407318e3d50bb0717c0daf104180c60e1bbede6471727bd91ccdf90db30ba1e67abaf27f9043bee44293f41e909dd327d0582484e5b0db8c05b597f8c4792894fb5ff7b31",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_ten_elements() {
@@ -959,7 +959,7 @@ test check_non_membership_ten_elements() {
       #<Bls12_381, G2>"97129b169a251b49d8e51ca5fd2bfb49bb43d17994ba5327a0c9d209998768c9c82c5639b3da3028b63448f7f8c6c1cc0ed9d7aab950823217b003f7d2c8d208be564e09e58335c168958d694ee52cdf7b059410c2b42d0f2480d020ea1f8f6f",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_fifteen_elements() {
@@ -1003,7 +1003,7 @@ test check_non_membership_fifteen_elements() {
       #<Bls12_381, G2>"b9139662dd1c2f265438d262d9eda4f912ad900c858d0505c49f019ee871b7fceb2b49b8a2731935a1e6b4b6f986a1bb18428f511cac7d30229619de30614ec96d023d3e60d332dc7b8f2867482cc277cc01d3b686d6a96ebc9c6c040fae740f",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_twenty_elements() {
@@ -1055,7 +1055,7 @@ test check_non_membership_twenty_elements() {
       #<Bls12_381, G2>"a966d2144115f8d6d3343bee1d533de7df38567b7c6ba420b567931a6026dfc21296e88b2ae801efb0a46c819b77890c10c5b6ec2ec4e2bde1ae3ab0010d171807e54a34e38d8f824a211e1a0856893f12d04bb4364f739ac580852732905b0b",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_twenty_five_elements() {
@@ -1112,7 +1112,7 @@ test check_non_membership_twenty_five_elements() {
       #<Bls12_381, G2>"875a2a9687f0b93188a63e3703aeae045b5c7457d39f736b5ebe9069a4965db110985793456160616a9c028953519139019d8904c348f2b310e73e30d2dd22e0efc525bd6e930e84ff37e3149506549e18aedfd04e1f1f17a0f570b651345ff9",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_thirty_elements() {
@@ -1174,7 +1174,7 @@ test check_non_membership_thirty_elements() {
       #<Bls12_381, G2>"8e54c0f4ae6b2d843553911da3638ed92852c03d49b785bdf53232b517a457c8fbc4e4842aeb1934c5524be1803ce296060665c14a4c47e9fbeb4fbc03bd72c1e9b858d9fd9e5ab0ee26942726d4a938e3987e61550d512eac0dadbd25ebd027",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_thirty_five_elements() {
@@ -1241,7 +1241,7 @@ test check_non_membership_thirty_five_elements() {
       #<Bls12_381, G2>"93671afb4e254c6eb963b81dc2d5c5d7e16417a1fc112a5ffd470f9754f6237762ba27e48be91e073c2ab22639961ccf0ac12a17a3a59cace8937a3f62c051257854fd98c2d5c43fef45df4bf3865eba6b31992dc2db1c94c158656051be2133",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_forty_elements() {
@@ -1314,7 +1314,7 @@ test check_non_membership_forty_elements() {
       #<Bls12_381, G2>"a31ec12184bbcce4f76105d87aa65780a7fb85ce887eb8fd5582161403a737705790dc324adda9222a87c01d2c7925830ed62a980be6001182c0d092fd3b1b5631dd12f153190b8038575f0520e6ce739c3e714405a895ce102d6919f523b58a",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
 
 test check_non_membership_forty_five_elements() {
@@ -1392,5 +1392,5 @@ test check_non_membership_forty_five_elements() {
       #<Bls12_381, G2>"b11d1ced742977fe55e7a0caab250083e97ed0a55ebb7ee1b311b545757e6956e40fe69da12c01e3caeb59d8edc2e73c0536eb64ba3cd00f640858a6a265e987327f4dd33ef25d1a5d49e7edb5d0e1fca936154623814ddec6ba4f2aaa4e7e68",
     )
 
-  check_nonmembership(crs_g1, g2, accumulator, disjoint_set, proof)
+  check_nonmembership_int(crs_g1, g2, accumulator, disjoint_set, proof)
 }
